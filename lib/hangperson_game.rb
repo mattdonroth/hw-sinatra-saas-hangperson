@@ -47,14 +47,16 @@ class HangpersonGame
         raise ArgumentError
     elsif (@word.include? letter.downcase) && (not @guesses.include? letter.downcase)
         @guesses+=letter.downcase
-        check_win_or_lose()
-        return true
+        if check_win_or_lose() == :play
+            return word_with_guesses()
+        else
+            return check_win_or_lose()
+        end
     elsif (not @word.include? letter.downcase) && (not @wrong_guesses.include? letter.downcase)
         @wrong_guesses+=letter.downcase
         check_win_or_lose()
         return true
     end
-    return false
   end
 
   # You can test it by running $ bundle exec irb -I. -r app.rb

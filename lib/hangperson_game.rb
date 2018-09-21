@@ -16,9 +16,9 @@ class HangpersonGame
 
   def valid_guess(letter)
     if /[[:alpha:]]/.match(letter)
-        return false
+        return true
     end
-    return true
+    return false
   end
 
   def check_win_or_lose()

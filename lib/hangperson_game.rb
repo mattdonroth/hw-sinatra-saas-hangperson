@@ -16,10 +16,13 @@ class HangpersonGame
   attr_accessor :word, :guesses, :wrong_guesses
 
   def valid_guess(letter)
-    if /[[:alpha:]]/.match(letter)
+    if letter == ''
+        return false
+    elsif /[[:alpha:]]/.match(letter)
         return true
+    else
+        return false
     end
-    return false
   end
 
   def check_win_or_lose()

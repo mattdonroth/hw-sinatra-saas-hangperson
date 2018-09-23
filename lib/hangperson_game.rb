@@ -15,15 +15,6 @@ class HangpersonGame
 
   attr_accessor :word, :guesses, :wrong_guesses
 
-  def valid_guess(letter)
-    if letter == ''
-        return false
-    elsif /[[:alpha:]]/.match(letter)
-        return true
-    else
-        return false
-    end
-  end
 
   def check_win_or_lose()
     if @wrong_guesses.length >= MAX_GUESSES
@@ -47,18 +38,28 @@ class HangpersonGame
     return displayedWord
   end
 
-  def guess(letter)
-    if (not valid_guess(letter)) || (letter.nil?) || (letter == '')
+ def guess(letter)
+    if letter == '' or letter == nil or !(letter =~ /[A-Za-z]/)
         raise ArgumentError
-    elsif (@word.include? letter.downcase) && (not @guesses.include? letter.downcase)
-        @guesses+=letter.downcase
-        return true
-    elsif (not @word.include? letter.downcase) && (not @wrong_guesses.include? letter.downcase)
-        @wrong_guesses+=letter.downcase
-        return true
     end
-    return false
-  end
+    letter.downcase!
+    if @word.include? letter
+        if @guesses.include? letter
+            return false
+        else
+            @guesses += letter
+            return true
+        end
+    else
+        if @wrong_guesses.include? letter
+            return false
+        else 
+            @wrong_guesses += letter
+            return  true
+        end
+    end
+ end
+
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> HangpersonGame.get_random_word

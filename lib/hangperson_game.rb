@@ -48,7 +48,7 @@ class HangpersonGame
   end
 
   def guess(letter)
-    if (not valid_guess(letter)) || (letter.nil?)
+    if (not valid_guess(letter)) || (letter.nil?) || (letter == '')
         raise ArgumentError
     elsif (@word.include? letter.downcase) && (not @guesses.include? letter.downcase)
         @guesses+=letter.downcase
